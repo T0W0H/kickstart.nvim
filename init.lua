@@ -185,6 +185,26 @@ do
 
   vim.keymap.set('i', 'jk', '<Esc>', { desc = 'Exit insert mode' })
 
+  -- 让 j/k 在普通模式按屏幕行移动（无数字前缀时）
+  vim.keymap.set('n', 'j', function() return vim.v.count == 0 and 'gj' or 'j' end, { expr = true, desc = 'Move down by screen lines' })
+  vim.keymap.set('n', 'k', function() return vim.v.count == 0 and 'gk' or 'k' end, { expr = true, desc = 'Move up by screen lines' })
+
+  -- 可视模式的 j/k 也按屏幕行移动
+  vim.keymap.set('v', 'j', 'gj', { desc = 'Move down by screen lines' })
+  vim.keymap.set('v', 'k', 'gk', { desc = 'Move up by screen lines' })
+
+  -- 所有模式的上下方向键 → 屏幕行移动
+  for _, mode in ipairs { 'n', 'v', 'i' } do
+    local map = vim.keymap.set
+    if mode == 'i' then
+      map('i', '<Up>', '<C-o>gk', { desc = 'Screen line up' })
+      map('i', '<Down>', '<C-o>gj', { desc = 'Screen line down' })
+    else
+      map(mode, '<Up>', 'gk', { desc = 'Screen line up' })
+      map(mode, '<Down>', 'gj', { desc = 'Screen line down' })
+    end
+  end
+
   -- Clear highlights on search when pressing <Esc> in normal mode
   --  See `:help hlsearch`
   vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
