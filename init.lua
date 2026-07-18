@@ -798,6 +798,12 @@ do
     'isort',
     'black',
     'jq',
+    'prettier',
+    -- 新增 linter 工具
+    'cpplint',
+    'flake8',
+    'jsonlint',
+    'markdownlint',
   })
 
   require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -841,11 +847,11 @@ do
       --
       cpp = { 'clang_format' },
       lua = { 'stylua' },
-      json = { 'jq' }, -- 或者 prettier
+      json = { 'jq', 'prettier' }, -- 或者 prettier
       -- csv 暂时没有通用格式化器，可忽略
-
+      markdown = { 'prettier' },
       -- You can use 'stop_after_first' to run the first available formatter from the list
-      -- javascript = { "prettierd", "prettier", stop_after_first = true },
+      javascript = { 'prettierd', 'prettier', stop_after_first = true },
     },
   }
 
