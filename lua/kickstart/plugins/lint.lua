@@ -66,18 +66,12 @@ lint.linters_by_ft = {
   markdown = { 'markdownlint' },
 }
 
--- 降低各 linter 严格度
-lint.linters.cpplint = {
-  args = { '--filter=-build/header_guard,-whitespace/line_length,-whitespace/braces', '--quiet' },
-}
-lint.linters.flake8 = {
-  args = { '--ignore=E501,W503,E302', '--max-line-length=120' },
-}
-lint.linters.markdownlint = {
-  args = { '--disable', 'MD013', 'MD033', 'MD024' },
-}
+-- 只修改 args，不覆盖整个 linter 对象
+lint.linters.cpplint.args = { '--filter=-build/header_guard,-whitespace/line_length,-whitespace/braces', '--quiet' }
+lint.linters.flake8.args = { '--ignore=E501,W503,E302', '--max-line-length=120' }
+lint.linters.markdownlint.args = { '--disable', 'MD013', 'MD033', 'MD024' }
 
--- 自动触发 lint
+-- 自动触发 lint（保持不变）
 local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
 vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
   group = lint_augroup,
