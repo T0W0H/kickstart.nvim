@@ -423,9 +423,37 @@ do
   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
   --vim.cmd.colorscheme 'tokyonight-night'
 
-  vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
+  -- 加载 everforest 配色插件
+  vim.pack.add { gh 'sainnhe/everforest' }
+
+  -- 基础配置（必须写在 colorscheme 之前）
+  vim.o.termguicolors = true -- 开启 24 位真彩色
+  vim.o.background = 'dark' -- 深色主题，换成 'light' 为浅色
+  vim.g.everforest_background = 'hard' -- 背景对比度：hard/medium/soft
+  vim.g.everforest_enable_italic = true -- 开启斜体
+  vim.g.everforest_better_performance = 1 -- 优化加载速度
+
+  -- 应用配色方案
+  vim.cmd.colorscheme 'everforest'
+
+  -- 全局透明背景
+  local transparent_groups = {
+    'Normal',
+    'NormalNC',
+    'NormalFloat',
+    'FloatBorder',
+    'SignColumn',
+    'Pmenu',
+    'VertSplit',
+  }
+
+  for _, group in ipairs(transparent_groups) do
+    vim.api.nvim_set_hl(0, group, { bg = 'none' })
+  end
+
+  --  vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+  --  vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+  --  vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
 
   -- Highlight todo, notes, etc in comments
   vim.pack.add { gh 'folke/todo-comments.nvim' }
