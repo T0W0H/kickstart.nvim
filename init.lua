@@ -756,7 +756,7 @@ do
     -- gopls = {},
     pyright = {},
     jsonls = {},
-    -- rust_analyzer = {},
+    rust_analyzer = {},
     --
     -- Some languages (like typescript) have entire language plugins that can be useful:
     --    https://github.com/pmizio/typescript-tools.nvim
@@ -857,6 +857,7 @@ do
         lua = true,
         python = true,
         cpp = true,
+        rust = true,
       }
       if enabled_filetypes[vim.bo[bufnr].filetype] then
         return { timeout_ms = 500 }
@@ -869,7 +870,7 @@ do
     },
     -- You can also specify external formatters in here.
     formatters_by_ft = {
-      -- rust = { 'rustfmt' },
+      rust = { 'rustfmt' },
       -- Conform can also run multiple formatters sequentially
       python = { 'isort', 'black' }, -- 先排序 import 再格式化
       --
